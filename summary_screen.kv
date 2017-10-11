@@ -1,0 +1,45 @@
+#: kivy 1.10.0
+
+<SummaryScreen@Screen>
+
+    name: 'summary_screen'
+
+    ## Objects on this screen.
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: sp(20)
+        spacing: sp(20)
+
+        ## PATIENT HUMAN ID.
+        Label:
+            text: app.patient_hid
+            text_size: self.size
+            halign: 'left'
+            font_size: sp(50)
+            size_hint: 1, None
+            height: sp(100)
+            pos_hint: {'x': 0.01, 'y': 0.95}
+
+        ## NAVIGATION BUTTONS.
+        BoxLayout: 
+            spacing: sp(20)
+            size_hint: 1, None
+            height: sp(100)
+    
+            Button:
+                text: app.patient_hid
+                font_size: sp(35)
+                size_hint: 1, None
+                height: sp(100)
+                background_normal: ''
+                background_color: dark_blue
+                bold: True
+                on_press: app.root.current = 'patient_screen'
+
+        Image:
+##            source: 'plots/{}_LEFT.png'.format(app.scan['_id'])
+            
+
+                
+

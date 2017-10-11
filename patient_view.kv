@@ -1,0 +1,57 @@
+#:kivy 1.10.0
+
+<PatientView@BoxLayout>:
+    orientation: 'horizontal'
+    size_hint: 1,1
+    spacing: 0
+    hid: ''
+    createdAt: ''
+    _id: ''
+    Button:
+        size_hint: 1, 1
+        background_normal: ''
+        background_color: (0.4, 0.4, 0.4, 1)
+        text: root.hid
+        font_size: sp(35)
+        underline: True
+        bold: True
+        on_press:
+            app.set_patient(root._id)
+            app.root.current = 'patient_screen'
+    Label:
+        bcolor: 0.4, 0.4, 0.4, 1
+        canvas.before:
+            Color:
+                rgba: self.bcolor
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        size_hint: 1, 1
+        font_size: sp(35)
+        text: root.createdAt
+    Button:
+        background_normal: ''
+        background_color: (0.4, 0.4, 0.4, 1)
+        color: 0.96, 0.67, 0.21, 1
+        underline: True
+        size_hint: 1, 1
+        text: 'DELETE'
+        font_size: sp(35)
+        bold: True
+        on_press:
+            app.delete_patient(root._id)
+    Button:
+        background_normal: ''
+        background_color: (0.4, 0.4, 0.4, 1)
+        color: (1, 1, 1, 1)
+        underline: True
+        size_hint: 1, 1
+        text: 'Export Data'
+        font_size: sp(35)
+        bold: True
+        on_press:
+            app.save_data(root._id)
+            Factory.ExportPopup().open()
+
+
+

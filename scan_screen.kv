@@ -1,0 +1,83 @@
+#: kivy 1.10.0
+
+<ScanScreen@Screen>:
+    name: 'scan_screen'
+
+    ## Objects attached.
+    scan_button: scan_button
+
+    ## When we arrive...
+    on_enter:
+        notes.focus = True 
+        scan_button.disabled = False
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: sp(20)
+        spacing: sp(20)
+
+        Label:
+            text: app.patient_hid
+            text_size: self.size
+            halign: 'left'
+            font_size: sp(50)
+            size_hint: 1, None
+            height: sp(100)
+            pos_hint: {'x': 0.01, 'y': 0.95}
+    
+        Button:
+            text: app.patient_hid
+            font_size: sp(35)
+            size_hint: 1, None
+            height: sp(100)
+            background_normal: ''
+            background_color: dark_blue
+            bold: True
+            on_press: app.root.current = 'patient_screen'
+
+        ## TEXT INPUT FIELDS
+        BoxLayout:
+            spacing: sp(20)
+            size_hint: 1, None
+            height: sp(100)
+
+            TextInput:
+                id: notes
+                padding: sp(15)
+                hint_text: 'Notes'  
+                size_hint: 0.6, 1
+                multiline: False
+                write_tab: False
+                font_size: sp(35)
+                on_text:
+                    
+            TextInput:
+                id: gcs
+                padding: sp(15)
+                hint_text: 'GCS'  
+                size_hint: 0.2, 1
+                multiline: False
+                write_tab: False
+                font_size: sp(35)
+                on_text:
+                    app.update_scan(notes.text, gcs.text)
+                
+        Button:
+            id: scan_button
+            size_hint: 1, 1
+            text: app.scan_status
+            background_normal: ''
+            background_color: yellow
+            background_down: 'images/button_down@2x.png'
+            background_disabled_normal: 'images/button_down@2x.png'
+            disabled_color: 0, 0, 0, 1
+            color: 0, 0, 0, 1
+            bold: True
+            size_hint: 1, 1
+            font_size: sp(100)
+            on_press: 
+                app.start_scan()
+                self.disabled = True
+
+
+    

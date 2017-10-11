@@ -1,0 +1,56 @@
+#: kivy 1.10.0
+
+
+<HomeScreen@Screen>
+
+    name: 'home_screen'
+    patients: patient_list
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: sp(20)
+        spacing: sp(20)
+
+        Label:
+            text: app.patient_hid
+            text_size: self.size
+            halign: 'left'
+            font_size: sp(50)
+            size_hint: 1, None
+            height: sp(100)
+            pos_hint: {'x': 0.01, 'y': 0.95}
+    
+        Button:
+            text: 'Add New Patient'
+            font_size: sp(35)
+            size_hint: 1, None
+            height: sp(100)
+            background_normal: ''
+            background_color: yellow
+            color: 0, 0, 0, 1
+            bold: True
+            on_press: app.create_patient()
+                
+        Label:
+            size_hint: None, None
+            width: 400
+            text: 'Available Patients' if len(app.patients) > 0 else 'No Patients...'
+            text_size: self.size
+            font_size: sp(35)
+            halign: 'left'
+            bold: True
+            size_hint: 1, None
+            height: sp(100)
+
+        PatientList:
+            id: patient_list
+            viewclass: 'PatientView'
+            size_hint: 1,1
+            RecycleBoxLayout:
+                spacing: 25
+                size_hint: 1, 1
+                default_size: None, sp(80)
+                default_size_hint: 1.0, None
+                size_hint_y: None
+                height: self.minimum_height
+                orientation: 'vertical'

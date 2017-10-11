@@ -1,0 +1,123 @@
+#: kivy 1.10.0
+<PatientScreen@Screen>
+
+    name: 'patient_screen'
+    patients: patient_list
+
+    ## Objects on this screen.
+    description: description
+
+    ## When we load the screen...
+    on_enter: 
+        description.focus = True 
+        description.text = app.patient['description']
+        gender.text = app.patient['gender']
+        age.text = app.patient['age']
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: sp(20)
+        spacing: sp(20)
+
+        ## PATIENT HUMAN ID.
+        Label:
+            text: app.patient_hid
+            text_size: self.size
+            halign: 'left'
+            font_size: sp(50)
+            size_hint: 1, None
+            height: sp(100)
+            pos_hint: {'x': 0.01, 'y': 0.95}
+
+        ## NAVIGATION BUTTONS.
+        BoxLayout: 
+            spacing: sp(20)
+            size_hint: 1, None
+            height: sp(100)
+    
+            Button:
+                text: 'Home'
+                font_size: sp(35)
+                size_hint: 1, None
+                height: sp(100)
+                background_normal: ''
+                background_color: dark_blue
+                bold: True
+                on_press: app.root.current = 'home_screen'
+            
+            Button:
+                text: 'Add Scan'
+                font_size: sp(35)
+                size_hint: 1, None
+                height: sp(100)
+                background_normal: ''
+                background_color: yellow
+                color: 0, 0, 0, 1
+                bold: True
+                on_press: app.create_scan()
+
+        ## TEXT INPUT FIELDS
+        BoxLayout:
+            spacing: sp(20)
+            size_hint: 1, None
+            height: sp(100)
+
+            TextInput:
+                id: description
+                padding: sp(15)
+                hint_text: 'Description'  
+                size_hint: 0.6, 1
+                multiline: False
+                write_tab: False
+                font_size: sp(35)
+                on_text:
+                    app.update_patient(description.text, gender.text, age.text)
+                    
+
+            TextInput:
+                id: gender
+                padding: sp(15)
+                hint_text: 'Gender'  
+                size_hint: 0.2, 1
+                multiline: False
+                write_tab: False
+                font_size: sp(35)
+                on_text:
+                    app.update_patient(description.text, gender.text, age.text)
+            
+            TextInput:
+                id: age
+                padding: sp(15)
+                hint_text: 'Age'  
+                size_hint: 0.2, 1
+                multiline: False
+                write_tab: False
+                font_size: sp(35)
+                on_text:
+                    app.update_patient(description.text, gender.text, age.text)
+                
+        ## SCAN LISTINGS
+        Label:
+            size_hint: None, None
+            width: 400
+            text: 'Available Scans' if len(app.patients)>0 else 'No scans...'
+            text_size: self.size
+            font_size: sp(35)
+            halign: 'left'
+            bold: True
+            size_hint: 1, None
+            height: sp(100)
+
+        PatientList:
+            id: patient_list
+            viewclass: 'PatientView'
+            size_hint: 1,1
+            RecycleBoxLayout:
+                spacing: 25
+                size_hint: 1, 1
+                default_size: None, sp(80)
+                default_size_hint: 1.0, None
+                size_hint_y: None
+                height: self.minimum_height
+                orientation: 'vertical'
+

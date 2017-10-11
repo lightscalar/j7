@@ -1,0 +1,36 @@
+#:kivy 1.10.0
+#: include home_screen.kv
+#: include patient_screen.kv
+#: include patient_view.kv
+#: include scan_screen.kv
+#: include summary_screen.kv
+#: import ScreenManager kivy.uix.screenmanager.ScreenManager
+#: import FallOutTransition kivy.uix.screenmanager.FallOutTransition
+#:set dark_blue (0.188, 0.333, 0.502, 1)
+#:set dark_gray (0.188, 0.188, 0.188, 1)
+#:set yellow (0.992, 0.725, 0.075, 1)
+
+
+ScreenManager:
+
+    ## Available screen objects:
+    home: home_screen
+    patient: patient_screen
+    scan: scan_screen
+    summary: summary_screen
+    
+    ## Set transition type
+    transition: FallOutTransition()
+
+    ## Screens
+    HomeScreen:
+        id: home_screen
+
+    PatientScreen
+        id: patient_screen
+    
+    ScanScreen
+        id: scan_screen
+    
+    SummaryScreen
+        id: summary_screen
