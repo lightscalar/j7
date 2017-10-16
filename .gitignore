@@ -9,6 +9,7 @@ __pycache__/
 *.hdf5
 data/
 plots/
+*.png
 
 # C extensions
 *.so
