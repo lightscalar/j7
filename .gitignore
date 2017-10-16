@@ -8,6 +8,7 @@ __pycache__/
 *.dat
 *.hdf5
 data/
+plots/
 
 # C extensions
 *.so

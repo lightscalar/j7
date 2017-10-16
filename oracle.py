@@ -39,7 +39,10 @@ class Oracle(object):
         # Start the scan.
         scan = self.gp.collect(scan)
         os.remove('request.oracle')
-        db.update(scan)
+        try:
+            db.update(scan)
+        except:
+            print('Cannot save to database.')
 
     def kill():
         self.watchdog.kill()

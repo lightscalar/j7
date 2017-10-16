@@ -10,6 +10,8 @@
     on_enter:
         notes.focus = True 
         scan_button.disabled = False
+        scan_button.disabled 
+        app.scan_status = 'START SCAN'
 
     BoxLayout:
         orientation: 'vertical'
@@ -76,8 +78,7 @@
             size_hint: 1, 1
             font_size: sp(100)
             on_press: 
-                app.start_scan()
-                self.disabled = True
-
+                if app.scan['is_complete'] == True: app.root.current = 'summary_screen'
+                else: self.disabled=True; app.start_scan()
 
     

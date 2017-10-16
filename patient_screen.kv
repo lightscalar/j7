@@ -1,11 +1,14 @@
 #: kivy 1.10.0
+
 <PatientScreen@Screen>
 
     name: 'patient_screen'
-    patients: patient_list
+    scans: scan_list
 
     ## Objects on this screen.
     description: description
+    age: age
+    gender: gender
 
     ## When we load the screen...
     on_enter: 
@@ -13,6 +16,11 @@
         description.text = app.patient['description']
         gender.text = app.patient['gender']
         age.text = app.patient['age']
+        app.refresh_scans()
+        print('Age is ')
+        print(app.patient_age)
+        print(app.patient_description)
+        print(app.patient_gender)
 
     BoxLayout:
         orientation: 'vertical'
@@ -70,10 +78,9 @@
                 multiline: False
                 write_tab: False
                 font_size: sp(35)
-                on_text:
+                on_text_validate:
                     app.update_patient(description.text, gender.text, age.text)
                     
-
             TextInput:
                 id: gender
                 padding: sp(15)
@@ -82,7 +89,7 @@
                 multiline: False
                 write_tab: False
                 font_size: sp(35)
-                on_text:
+                on_text_validate:
                     app.update_patient(description.text, gender.text, age.text)
             
             TextInput:
@@ -93,14 +100,14 @@
                 multiline: False
                 write_tab: False
                 font_size: sp(35)
-                on_text:
+                on_text_validate:
                     app.update_patient(description.text, gender.text, age.text)
                 
         ## SCAN LISTINGS
         Label:
             size_hint: None, None
             width: 400
-            text: 'Available Scans' if len(app.patients)>0 else 'No scans...'
+            text: 'Available Scans' if len(app.scans) > 0 else 'No Scans...'
             text_size: self.size
             font_size: sp(35)
             halign: 'left'
@@ -108,9 +115,9 @@
             size_hint: 1, None
             height: sp(100)
 
-        PatientList:
-            id: patient_list
-            viewclass: 'PatientView'
+        ScanList:
+            id: scan_list
+            viewclass: 'ScanView'
             size_hint: 1,1
             RecycleBoxLayout:
                 spacing: 25
@@ -120,4 +127,3 @@
                 size_hint_y: None
                 height: self.minimum_height
                 orientation: 'vertical'
-

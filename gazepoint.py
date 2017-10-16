@@ -8,6 +8,9 @@ import numpy as np
 from data_explorer import *
 import socket
 import time
+from solid_db import SolidDB
+
+db = SolidDB('data/db.json')
 
 
 class GazePoint(object):
@@ -57,6 +60,7 @@ class GazePoint(object):
         max_time = 0
         flashed = False
         flash_time = 0
+        print ('Starting Collection...')
         with self.connect() as socket:
             # Standard 16 second scan.
             while (time.time() - start_time) < 16:
@@ -85,9 +89,14 @@ class GazePoint(object):
         status.save()
         scan = process_raw_data((flash_time, scanner_data), scan)
 
+        # Save the scan to the database.
+        scan['is_complete'] = True
+        scan = db.update(scan)
+
         # Announce we are finished!
         print('Data Processing Complete')
-        status.message = 'Data Processing Complete'
+        status.message = 'RESULTS ARE READY'
+        print(status.message)
         status.data_processing_complete = True
         status.save()
         return scan

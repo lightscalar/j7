@@ -5,6 +5,13 @@
     name: 'summary_screen'
 
     ## Objects on this screen.
+    left_eye: left_eye
+    right_eye: right_eye
+
+    ## On enter:
+    on_enter:
+        left_eye.reload()
+        right_eye.reload()
 
     BoxLayout:
         orientation: 'vertical'
@@ -28,7 +35,7 @@
             height: sp(100)
     
             Button:
-                text: app.patient_hid
+                text: 'Return to {}'.format(app.patient_hid)
                 font_size: sp(35)
                 size_hint: 1, None
                 height: sp(100)
@@ -37,9 +44,459 @@
                 bold: True
                 on_press: app.root.current = 'patient_screen'
 
-        Image:
-##            source: 'plots/{}_LEFT.png'.format(app.scan['_id'])
-            
+        BoxLayout:
+            spacing: sp(20)
+            size_hint: 1, None
+            height: sp(60)
+            canvas.before:
+                Color:
+                    rgb: 0.3, 0.3, 0.3
+                    rgb: 0.2, 0.2, 0.2
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                padding: sp(20), sp(20)
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(60)
+                text: 'Timestamp'
+                bold: True
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                padding: sp(20), sp(20)
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(60)
+                text: app.scan_time
+        
+        BoxLayout:
+            spacing: sp(20)
+            size_hint: 1, None
+            height: sp(60)
+            canvas.before:
+                Color:
+                    rgb: 0.3, 0.3, 0.3
+                    rgb: 0.2, 0.2, 0.2
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                padding: sp(20), sp(20)
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(60)
+                text: 'GCS'
+                bold: True
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                padding: sp(20), sp(20)
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(60)
+                text: '{:.0f}'.format(app.scan_gcs)
+
+        BoxLayout:
+            spacing: sp(20)
+            size_hint: 1, None
+            height: sp(60)
+            canvas.before:
+                Color:
+                    rgb: 0.2, 0.2, 0.2
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                padding: sp(20), sp(20)
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(60)
+                text: 'Notes'
+                bold: True
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                padding: sp(20), sp(20)
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(60)
+                text: app.scan_notes
+        
+        BoxLayout:
+            spacing: sp(20)
+            size_hint: 1, None
+            height: sp(60)
+            padding: 0,0
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'bottom'
+                font_size: sp(25)
+                padding: sp(20), 0
+                size_hint: 1, None
+                height: sp(60)
+                text: 'MEASUREMENT'
+                bold: True
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'bottom'
+                font_size: sp(25)
+                padding: sp(20), 0
+                size_hint: 1, None
+                height: sp(60)
+                text: 'LEFT'
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'bottom'
+                padding: sp(20), 0
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(60)
+                text: 'RIGHT'
+
+        BoxLayout:
+            spacing: sp(20)
+            size_hint: 1, None
+            height: sp(60)
+            canvas.before:
+                Color:
+                    rgb: 0.3, 0.3, 0.3
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                padding: sp(20), sp(20)
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(60)
+                height: sp(60)
+                text: 'Latency (ms)'
+                bold: True
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                padding: sp(20), sp(20)
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(100)
+                height: sp(60)
+                text: '{:0.2f}'.format(app.left_latency)
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                padding: sp(20), sp(20)
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(100)
+                height: sp(60)
+                text: '{:0.2f}'.format(app.right_latency)
+        
+        BoxLayout:
+            spacing: sp(20)
+            size_hint: 1, None
+            height: sp(100)
+            height: sp(60)
+            canvas.before:
+                Color:
+                    rgb: 0.3, 0.3, 0.3
+                    rgb: 0.5, 0.5, 0.5
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                padding: sp(20), sp(20)
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(100)
+                height: sp(60)
+                text: 'Starting Diameter (mm)'
+                bold: True
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                padding: sp(20), sp(20)
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(100)
+                height: sp(60)
+                text: '{:0.2f}'.format(app.left_starting_diameter)
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                padding: sp(20), sp(20)
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(100)
+                height: sp(60)
+                text: '{:0.2f}'.format(app.right_starting_diameter)
+        
+        BoxLayout:
+            spacing: sp(20)
+            size_hint: 1, None
+            height: sp(100)
+            height: sp(60)
+            canvas.before:
+                Color:
+                    rgb: 0.3, 0.3, 0.3
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                padding: sp(20), sp(20)
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(100)
+                height: sp(60)
+                text: 'Minimum Diameter (mm)'
+                bold: True
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                padding: sp(20), sp(20)
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(100)
+                height: sp(60)
+                text: '{:0.2f}'.format(app.left_minimum_diameter)
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                padding: sp(20), sp(20)
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(100)
+                height: sp(60)
+                text: '{:0.2f}'.format(app.right_minimum_diameter)
+
+
+        BoxLayout:
+            spacing: sp(20)
+            size_hint: 1, None
+            height: sp(100)
+            height: sp(60)
+            canvas.before:
+                Color:
+                    rgb: 0.3, 0.3, 0.3
+                    rgb: 0.5, 0.5, 0.5
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                padding: sp(20), sp(20)
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(100)
+                height: sp(60)
+                text: 'Absolute Change (mm)'
+                bold: True
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                padding: sp(20), sp(20)
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(100)
+                height: sp(60)
+                text: '{:0.2f}'.format(app.left_absolute_diameter_change)
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                padding: sp(20), sp(20)
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(100)
+                height: sp(60)
+                text: '{:0.2f}'.format(app.right_absolute_diameter_change)
+
+
+        BoxLayout:
+            spacing: sp(20)
+            size_hint: 1, None
+            height: sp(100)
+            height: sp(60)
+            canvas.before:
+                Color:
+                    rgb: 0.3, 0.3, 0.3
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                padding: sp(20), sp(20)
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(100)
+                height: sp(60)
+                text: 'Relative Change'
+                bold: True
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                padding: sp(20), sp(20)
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(100)
+                height: sp(60)
+                text: '{:0.2f}'.format(app.left_relative_diameter_change)
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                padding: sp(20), sp(20)
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(100)
+                height: sp(60)
+                text: '{:0.2f}'.format(app.right_relative_diameter_change)
+
+
+        BoxLayout:
+            spacing: sp(20)
+            size_hint: 1, None
+            height: sp(100)
+            height: sp(60)
+            canvas.before:
+                Color:
+                    rgb: 0.3, 0.3, 0.3
+                    rgb: 0.5, 0.5, 0.5
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                padding: sp(20), sp(20)
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(100)
+                height: sp(60)
+                text: 'Average Speed (mm/s)'
+                bold: True
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                padding: sp(20), sp(20)
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(100)
+                height: sp(60)
+                text: '{:0.2f}'.format(app.left_average_speed)
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                padding: sp(20), sp(20)
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(100)
+                height: sp(60)
+                text: '{:0.2f}'.format(app.right_average_speed)
+
+
+        BoxLayout:
+            spacing: sp(20)
+            size_hint: 1, None
+            height: sp(100)
+            height: sp(60)
+            canvas.before:
+                Color:
+                    rgb: 0.3, 0.3, 0.3
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                padding: sp(20), sp(20)
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(100)
+                height: sp(60)
+                text: 'Recovery Time (ms)'
+                bold: True
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                padding: sp(20), sp(20)
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(100)
+                height: sp(60)
+                text: '{:0.2f}'.format(app.left_recovery_time)
+            Label:
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                padding: sp(20), sp(20)
+                font_size: sp(25)
+                size_hint: 1, None
+                height: sp(100)
+                height: sp(60)
+                text: '{:0.2f}'.format(app.right_recovery_time)
+
+        BoxLayout:
+            size_hint: 1,1
+            spacing: sp(20)
+
+            Image:
+                id: left_eye
+                nocache: True
+                source: 'plots/{}_LEFT.png'.format(app.scan_id)
+
+            Image:
+                id: right_eye
+                nocache: True
+                source: 'plots/{}_RIGHT.png'.format(app.scan_id)
+                
 
                 
 

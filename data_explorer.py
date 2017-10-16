@@ -75,9 +75,9 @@ def process_raw_data(package, scan):
         t = np.array(tser['time'])
         left = np.array(tser['left']['diameter'])
         right = np.array(tser['right']['diameter'])
-        scan['left'] = extract_plr(t, left, flash_time, scan_id=scan['_id'], \
+        scan['left_eye'] = extract_plr(t, left, flash_time, scan_id=scan['_id'], \
                 which_eye='LEFT')
-        scan['right'] = extract_plr(t, right, flash_time, scan_id=scan['_id'], \
+        scan['right_eye'] = extract_plr(t, right, flash_time, scan_id=scan['_id'], \
                 which_eye='RIGHT')
         scan['isSuccess'] = True
     except:

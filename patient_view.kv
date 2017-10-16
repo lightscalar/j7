@@ -1,5 +1,31 @@
 #:kivy 1.10.0
+#: import Factory kivy.factory.Factory
 
+
+## POPUP Content
+<ExportComplete@BoxLayout>:
+    orientation: 'vertical'
+    Label:
+        text: 'Data exported to Desktop/exports'
+        font_size: sp(35)
+    Button:
+        size_hint: None, None
+        size: 350, 100
+        text: 'Thanks!'
+        font_size: sp(35)
+        on_release:
+            root.parent.parent.parent.dismiss()
+
+## Popup
+<ExportPopup@Popup>:
+    auto_dismiss: False
+    size_hint: None, None
+    size: 1100, 500
+    title: 'Data Exported'
+    title_size: sp(35)
+    ExportComplete:
+
+## Patient View Layout
 <PatientView@BoxLayout>:
     orientation: 'horizontal'
     size_hint: 1,1
@@ -7,6 +33,7 @@
     hid: ''
     createdAt: ''
     _id: ''
+
     Button:
         size_hint: 1, 1
         background_normal: ''
@@ -17,7 +44,8 @@
         bold: True
         on_press:
             app.set_patient(root._id)
-            app.root.current = 'patient_screen'
+
+    ## CreatedAt tag
     Label:
         bcolor: 0.4, 0.4, 0.4, 1
         canvas.before:
@@ -29,6 +57,8 @@
         size_hint: 1, 1
         font_size: sp(35)
         text: root.createdAt
+      
+    ## DELETE PATIENT
     Button:
         background_normal: ''
         background_color: (0.4, 0.4, 0.4, 1)
@@ -40,6 +70,8 @@
         bold: True
         on_press:
             app.delete_patient(root._id)
+
+    ## EXPORT DATA
     Button:
         background_normal: ''
         background_color: (0.4, 0.4, 0.4, 1)
@@ -52,6 +84,4 @@
         on_press:
             app.save_data(root._id)
             Factory.ExportPopup().open()
-
-
 
